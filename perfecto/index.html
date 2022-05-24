@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>   -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Google Maps JavaScript library -->
+    <script
+        src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyBD4RH3W3gBb9Qpga7YNAfDuCwcBlZ2ESQ"></script>
+
+    <style>
+        #search_input {
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+            margin-top: 50px;
+        }
+
+        .form-group label {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        }
+
+        .form-group input:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <p>
+                <h1>Google Maps JavaScript API with Places Library Autocomplete Address Field</h1>
+                </p>
+                <!-- Autocomplete location search input -->
+                <div class="form-group">
+                    <label>Location:</label>
+                    <input type="text" class="form-control" id="searchTextField" placeholder="Type address..."
+                        autocomplete="on" runat="server" />
+                </div>
+                <input type="hidden" id="city2" name="city2" />
+                <input type="hidden" id="cityLat" name="cityLat" />
+                <input type="hidden" id="cityLng" name="cityLng" />
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function initialize() {
+            var input = document.getElementById('searchTextField');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                var place = autocomplete.getPlace();
+                document.getElementById('city2').value = place.name;
+                document.getElementById('cityLat').value = place.geometry.location.lat();
+                document.getElementById('cityLng').value = place.geometry.location.lng();
+                alert("This function is working!");
+                alert(place.name);
+                alert(place.address_components[0].long_name);
+
+            });
+        }
+        google.maps.event.addDomListener(window, 'load', initialize); 
+    </script>
+</body>
+
+</html>
